@@ -242,7 +242,7 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2> Stream<Tuple2<T1, T2>>
-	zip(Stream<T1> s1, Stream<T2> s2) {
+	stream(Stream<T1> s1, Stream<T2> s2) {
 		Objects.nonNull(s1);
 		Objects.nonNull(s2);
 		final Spliterator<T1> sp1 = s1.spliterator();
@@ -274,8 +274,8 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2> Stream<Tuple2<T1, T2>>
-	zip(List<T1> l1, List<T2> l2) {
-		return zip(l1.stream(), l2.stream());
+	stream(List<T1> l1, List<T2> l2) {
+		return stream(l1.stream(), l2.stream());
 	}
 	
 	/**
@@ -290,7 +290,7 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2, T3> Stream<Tuple3<T1, T2, T3>>
-	zip(Stream<T1> s1, Stream<T2> s2, Stream<T3> s3) {
+	stream(Stream<T1> s1, Stream<T2> s2, Stream<T3> s3) {
 		Objects.nonNull(s1);
 		Objects.nonNull(s2);
 		Objects.nonNull(s3);
@@ -329,8 +329,8 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2, T3> Stream<Tuple3<T1, T2, T3>>
-	zip(List<T1> l1, List<T2> l2, List<T3> l3) {
-		return zip(l1.stream(), l2.stream(), l3.stream());
+	stream(List<T1> l1, List<T2> l2, List<T3> l3) {
+		return stream(l1.stream(), l2.stream(), l3.stream());
 	}
 	
 	
@@ -348,7 +348,7 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2, T3, T4> Stream<Tuple4<T1, T2, T3, T4>>
-	zip(Stream<T1> s1, Stream<T2> s2, Stream<T3> s3, Stream<T4> s4) {
+	stream(Stream<T1> s1, Stream<T2> s2, Stream<T3> s3, Stream<T4> s4) {
 		Objects.nonNull(s1);
 		Objects.nonNull(s2);
 		Objects.nonNull(s3);
@@ -395,8 +395,8 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2, T3, T4> Stream<Tuple4<T1, T2, T3, T4>>
-	zip(List<T1> l1, List<T2> l2, List<T3> l3, List<T4> l4) {
-		return zip(l1.stream(), l2.stream(), l3.stream(), l4.stream());
+	stream(List<T1> l1, List<T2> l2, List<T3> l3, List<T4> l4) {
+		return stream(l1.stream(), l2.stream(), l3.stream(), l4.stream());
 	}
 	
 	
@@ -416,7 +416,7 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2, T3, T4, T5> Stream<Tuple5<T1, T2, T3, T4, T5>>
-	zip(Stream<T1> s1, Stream<T2> s2, Stream<T3> s3, Stream<T4> s4, Stream<T5> s5) {
+	stream(Stream<T1> s1, Stream<T2> s2, Stream<T3> s3, Stream<T4> s4, Stream<T5> s5) {
 		Objects.nonNull(s1);
 		Objects.nonNull(s2);
 		Objects.nonNull(s3);
@@ -470,8 +470,8 @@ public final class Tuple {
 	 * @return 結合したTupleを要素とするStream
 	 */
 	public static <T1, T2, T3, T4, T5> Stream<Tuple5<T1, T2, T3, T4, T5>>
-	zip(List<T1> l1, List<T2> l2, List<T3> l3, List<T4> l4, List<T5> l5) {
-		return zip(l1.stream(), l2.stream(), l3.stream(), l4.stream(), l5.stream());
+	stream(List<T1> l1, List<T2> l2, List<T3> l3, List<T4> l4, List<T5> l5) {
+		return stream(l1.stream(), l2.stream(), l3.stream(), l4.stream(), l5.stream());
 	}
 	
 	/**
@@ -484,7 +484,7 @@ public final class Tuple {
 	 * @return 直積のTupleを要素とするStream
 	 */
 	
-	public static <T1, T2> Stream<Tuple2<T1, T2>> product(Stream<T1> s1, Stream<T2> s2) {
+	public static <T1, T2> Stream<Tuple2<T1, T2>> productStream(Stream<T1> s1, Stream<T2> s2) {
 		Objects.requireNonNull(s1);
 		Objects.requireNonNull(s2);
 		List<T2> l2 = s2.collect(Collectors.toList());
@@ -501,15 +501,15 @@ public final class Tuple {
 	 * @return 直積のTupleを要素とするStream
 	 */
 	
-	public static <T1, T2> Stream<Tuple2<T1, T2>> product(Collection<T1> c1, Collection<T2> c2) {
+	public static <T1, T2> Stream<Tuple2<T1, T2>> productStream(Collection<T1> c1, Collection<T2> c2) {
 		return c1.size() < c2.size()
-				? product(c1, c2.stream())
-				: product(c1.stream(), c2);
+				? productStream(c1, c2.stream())
+				: productStream(c1.stream(), c2);
 	}
-	private static <T1, T2> Stream<Tuple2<T1, T2>> product(Collection<T1> s1, Stream<T2> s2) {
+	private static <T1, T2> Stream<Tuple2<T1, T2>> productStream(Collection<T1> s1, Stream<T2> s2) {
 		return s2.flatMap(v2 -> s1.stream().map(v1 -> Tuple.of(v1, v2)));
 	}
-	private static <T1, T2> Stream<Tuple2<T1, T2>> product(Stream<T1> s1, Collection<T2> s2) {
+	private static <T1, T2> Stream<Tuple2<T1, T2>> productStream(Stream<T1> s1, Collection<T2> s2) {
 		return s1.flatMap(v1 -> s2.stream().map(v2 -> Tuple.of(v1, v2)));
 	}
 	
@@ -522,7 +522,7 @@ public final class Tuple {
 	 * @return Collectionの要素とインデックスを要素とするStream
 	 */
 	public static <E> Stream<Tuple2<E, Integer>> streamWithIndex(Collection<E> collection, int start) {
-		return zip(collection.stream(), IntStream.iterate(start, i -> i+1).boxed());
+		return stream(collection.stream(), IntStream.iterate(start, i -> i+1).boxed());
 	}
 	/**
 	 * 入力されたCollectionの要素と0から増加するインデックスの組のStreamを作る.
@@ -573,7 +573,7 @@ public final class Tuple {
 	 * @param map StreamのもととなるMap
 	 * @return keyとvalueのペアを要素とするStream
 	 */
-	public static <T1, T2> Stream<Tuple2<T1, T2>> streamFromMap(Map<T1, T2> map) {
+	public static <T1, T2> Stream<Tuple2<T1, T2>> stream(Map<T1, T2> map) {
 		final int MAP_CHARACTERISTICS =
 				  Spliterator.DISTINCT
 				| Spliterator.NONNULL
@@ -596,7 +596,7 @@ public final class Tuple {
 	 * @param <T> 要素の型
 	 * @return 前後2つの要素の組を要素とするStream
 	 */
-	public static <T> Stream<Tuple2<T, T>> window2(Stream<T> stream) {
+	public static <T> Stream<Tuple2<T, T>> window2Stream(Stream<T> stream) {
 		Objects.requireNonNull(stream);
 		
 		if(stream.isParallel()) {
@@ -620,30 +620,30 @@ public final class Tuple {
 	 * @param <T> 要素の型
 	 * @return 前後2つの要素の組を要素とするStream
 	 */
-	public static <T> Stream<Tuple2<T, T>> window2(List<T> list) {
+	public static <T> Stream<Tuple2<T, T>> window2Stream(List<T> list) {
 		Objects.requireNonNull(list);
 		
 		if(list.size() < 2) {
 			return Stream.empty();
 		}
-		return zip(list, list.subList(1, list.size()));
+		return stream(list, list.subList(1, list.size()));
 	}
 	
 	/**
 	 * 入力したListから前後3つの要素の組を操作するためのStreamを作る．
 	 * 
-	 * @see Tuple#window2(List)
+	 * @see Tuple#window2Stream(List)
 	 * @param list もとになるList
 	 * @param <T> 要素の型
 	 * @return 前後3つの要素の組を要素とするStream
 	 */
-	public static <T> Stream<Tuple3<T, T, T>> window3(List<T> list) {
+	public static <T> Stream<Tuple3<T, T, T>> window3Stream(List<T> list) {
 		Objects.requireNonNull(list);
 		
 		if(list.size() < 3) {
 			return Stream.empty();
 		}
-		return zip(
+		return stream(
 				list,
 				list.subList(1, list.size()),
 				list.subList(2, list.size()));
@@ -652,18 +652,18 @@ public final class Tuple {
 	/**
 	 * 入力したListから前後4つの要素の組を操作するためのStreamを作る．
 	 * 
-	 * @see Tuple#window2(List)
+	 * @see Tuple#window2Stream(List)
 	 * @param list もとになるList
 	 * @param <T> 要素の型
 	 * @return 前後4つの要素の組を要素とするStream
 	 */
-	public static <T> Stream<Tuple4<T, T, T, T>> window4(List<T> list) {
+	public static <T> Stream<Tuple4<T, T, T, T>> window4Stream(List<T> list) {
 		Objects.requireNonNull(list);
 		
 		if(list.size() < 5) {
 			return Stream.empty();
 		}
-		return zip(
+		return stream(
 				list,
 				list.subList(1, list.size()),
 				list.subList(2, list.size()),
@@ -673,18 +673,18 @@ public final class Tuple {
 	/**
 	 * 入力したListから前後5つの要素の組を操作するためのStreamを作る．
 	 * 
-	 * @see Tuple#window2(List)
+	 * @see Tuple#window2Stream(List)
 	 * @param list もとになるList
 	 * @param <T> 要素の型
 	 * @return 前後5つの要素の組を要素とするStream
 	 */
-	public static <T> Stream<Tuple5<T, T, T, T, T>> window5(List<T> list) {
+	public static <T> Stream<Tuple5<T, T, T, T, T>> window5Stream(List<T> list) {
 		Objects.requireNonNull(list);
 		
 		if(list.size() < 5) {
 			return Stream.empty();
 		}
-		return zip(
+		return stream(
 				list,
 				list.subList(1, list.size()),
 				list.subList(2, list.size()),
