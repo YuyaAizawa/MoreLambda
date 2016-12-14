@@ -37,6 +37,20 @@ public class ThrowableFunctionTest {
 				.collect(Collectors.toList());
 	}
 	
+	@Test(expected = UncheckedIOException.class)
+	public void uncheckedTest03() {
+		withException.stream()
+				.map(unchecked(i -> Thrower.mayThrowIo(i)))
+				.collect(Collectors.toList());
+	}
+	
+	@Test(expected = UncheckedIOException.class)
+	public void uncheckedTest04() {
+		withException.stream()
+				.map(unchecked(i -> Thrower.mayThrowIo2(i)))
+				.collect(Collectors.toList());
+	}
+	
 	@Test
 	public void complementTest01() {
 		assertEquals(

@@ -16,4 +16,11 @@ public class Thrower {
 		}
 		return param;
 	}
+
+	public static int mayThrowIo2(int param) throws SubIOException {
+		if(param < 0) {
+			throw new SubIOException();
+		}
+		return param;
+	}
 }

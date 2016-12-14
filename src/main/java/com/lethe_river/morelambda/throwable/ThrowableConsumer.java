@@ -1,5 +1,7 @@
 package com.lethe_river.morelambda.throwable;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -81,6 +83,9 @@ public interface ThrowableConsumer<T, E extends Exception> {
 			} catch (RuntimeException | Error e) {
 				throw e;
 			} catch (Exception e) {
+				if(e instanceof IOException) {
+					throw new UncheckedIOException((IOException) e);
+				}
 				throw new RuntimeException(e);
 			}
 		};
