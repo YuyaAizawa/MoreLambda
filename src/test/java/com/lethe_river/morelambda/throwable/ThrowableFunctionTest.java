@@ -79,4 +79,12 @@ public class ThrowableFunctionTest {
 						.flatMap(o -> o.map(i -> Stream.of(i)).orElse(Stream.empty()))
 						.collect(Collectors.toList()));
 	}
+	
+	public void ignoredTest01() {
+		assertEquals(
+				ignored,
+				withException.stream()
+						.flatMap(ignored(i -> Thrower.mayThrowA(i)))
+						.collect(Collectors.toList()));
+	}
 }

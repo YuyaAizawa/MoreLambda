@@ -5,6 +5,8 @@ import java.io.UncheckedIOException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Stream;
+
 import com.lethe_river.morelambda.union.Union2;
 
 /**
@@ -64,6 +66,18 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 	 */
 	public static <T, R, E extends Exception> Function<T, Optional<R>> maybe(ThrowableFunction<T, R, E> f) {
 		return f.maybe();
+	}
+	
+	/**
+	 * 検査例外を発生させる関数を指定し，結果をStreamとして返す関数を生成する．例外発生時Streamは空となる.
+	 * @param f 検査例外を発生させる関数
+	 * @param <T> 引数の型
+	 * @param <R> 戻り値の型
+	 * @param <E> 例外の型
+	 * @return 結果をStreamとして返す関数
+	 */
+	public static <T, R, E extends Exception> Function<T, Stream<R>> ignored(ThrowableFunction<T, R, E> f) {
+		return f.includesToValue().andThen(u -> u.match(r -> Stream.of(r), e -> Stream.empty()));
 	}
 	
 	/**
