@@ -1,5 +1,6 @@
 package com.lethe_river.morelambda.algebra;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -20,8 +21,9 @@ import java.util.function.Function;
  * 
  */
 
-public class Union4<T1, T2, T3, T4> {
-	
+public class Union4<T1, T2, T3, T4> implements Serializable {
+	private static final long serialVersionUID = 2634099534334851651L;
+
 	private interface Member<T1, T2, T3, T4> {
 		public <R> R match(
 				Function<? super T1, ? extends R> f1,
