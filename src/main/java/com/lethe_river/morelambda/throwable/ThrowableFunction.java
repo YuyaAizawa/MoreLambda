@@ -77,7 +77,10 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 	 * @return 結果をStreamとして返す関数
 	 */
 	public static <T, R, E extends Exception> Function<T, Stream<R>> ignored(ThrowableFunction<T, R, E> f) {
-		return f.includesToValue().andThen(u -> u.match(r -> Stream.of(r), e -> Stream.empty()));
+		return f.includesToValue()
+				.andThen(u -> u.match(
+						(Function<R, Stream<R>>) r -> Stream.of(r),
+						(Function<E, Stream<R>>) e -> Stream.empty()));
 	}
 	
 	/**
