@@ -1,4 +1,4 @@
-package com.lethe_river.morelambda.union;
+package com.lethe_river.morelambda.algebra;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +11,6 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-
-import com.lethe_river.morelambda.tuple.Tuple;
-import com.lethe_river.morelambda.tuple.Tuple2;
-import com.lethe_river.morelambda.tuple.Tuple3;
-import com.lethe_river.morelambda.tuple.Tuple4;
-import com.lethe_river.morelambda.tuple.Tuple5;
 
 /**
  * Unionのユーティリティクラス

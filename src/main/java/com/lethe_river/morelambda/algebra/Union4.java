@@ -1,4 +1,4 @@
-package com.lethe_river.morelambda.union;
+package com.lethe_river.morelambda.algebra;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -7,9 +7,9 @@ import java.util.function.Function;
 
 /**
  * 型パラメータで指定した，いずれかの型の要素を持つコンテナ・オブジェクト．
- * T1, T2, T3, T4, T5のいずれかの型の要素を持つオブジェクトを定義し，操作を提供する．
+ * T1, T2, T3, T4のいずれかの型の要素を持つオブジェクトを定義し，操作を提供する．
  * ユーザーはこのオブジェクトに対し，要素の可能性のある型それぞれに対する操作を記述することで，複数の型を統一的に扱うことができる．
- * 型パラメータT1, T2, T3, T4, T5には異なる型が指定されることを想定している．
+ * 型パラメータT1, T2, T3, T4には異なる型が指定されることを想定している．
  * 
  * @author YuyaAizawa
  *
@@ -17,149 +17,122 @@ import java.util.function.Function;
  * @param <T2>
  * @param <T3>
  * @param <T4>
- * @param <T5>
  * 
  */
 
-public class Union5<T1, T2, T3, T4, T5> {
+public class Union4<T1, T2, T3, T4> {
 	
-	private interface Member<T1, T2, T3, T4, T5> {
+	private interface Member<T1, T2, T3, T4> {
 		public <R> R match(
 				Function<? super T1, ? extends R> f1,
 				Function<? super T2, ? extends R> f2,
 				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5);
+				Function<? super T4, ? extends R> f4);
 		public void matchDo(
 				Consumer<? super T1> c1,
 				Consumer<? super T2> c2,
 				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5);
+				Consumer<? super T4> c4);
 		public Object getValue();
 	}
 	
-	private final Member<T1, T2, T3, T4, T5> member;
+	private final Member<T1, T2, T3, T4> member;
 
 	
 	/**
-	 * 指定されたT1型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT1型の要素を持つ新しいUnion4を返す．
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> of1(T1 value) {
-		return new Union5<T1, T2, T3, T4, T5>(new Member1<>(Objects.requireNonNull(value)));
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> of1(T1 value) {
+		return new Union4<T1, T2, T3, T4>(new Member1<>(Objects.requireNonNull(value)));
 	}
 	
 	/**
-	 * 指定されたT1型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT1型の要素を持つ新しいUnion4を返す．
 	 * 
-	 * @deprecated {@link Union2#of1(Object) Union5#of1(T1)}に置き換えられた
+	 * @deprecated {@link Union2#of1(Object) Union4#of1(T1)}に置き換えられた
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> _1(T1 value) {
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> _1(T1 value) {
 		return of1(value);
 	}
 	
 	/**
-	 * 指定されたT2型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT2型の要素を持つ新しいUnion4を返す．
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> of2(T2 value) {
-		return new Union5<T1, T2, T3, T4, T5>(new Member2<>(Objects.requireNonNull(value)));
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> of2(T2 value) {
+		return new Union4<T1, T2, T3, T4>(new Member2<>(Objects.requireNonNull(value)));
 	}
 	
 	/**
-	 * 指定されたT2型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT2型の要素を持つ新しいUnion4を返す．
 	 * 
-	 * @deprecated {@link Union2#of1(Object) Union5#of2(T2)}に置き換えられた
+	 * @deprecated {@link Union2#of1(Object) Union4#of2(T2)}に置き換えられた
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> _2(T2 value) {
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> _2(T2 value) {
 		return of2(value);
 	}
 	
 	/**
-	 * 指定されたT3型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT3型の要素を持つ新しいUnion4を返す．
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> of3(T3 value) {
-		return new Union5<T1, T2, T3, T4, T5>(new Member3<>(Objects.requireNonNull(value)));
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> of3(T3 value) {
+		return new Union4<T1, T2, T3, T4>(new Member3<>(Objects.requireNonNull(value)));
 	}
 	
 	/**
-	 * 指定されたT3型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT3型の要素を持つ新しいUnion4を返す．
 	 * 
-	 * @deprecated {@link Union2#of1(Object) Union5#of3(T3)}に置き換えられた
+	 * @deprecated {@link Union2#of1(Object) Union4#of3(T3)}に置き換えられた
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> _3(T3 value) {
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> _3(T3 value) {
 		return of3(value);
 	}
 	
 	/**
-	 * 指定されたT4型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT4型の要素を持つ新しいUnion4を返す．
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> of4(T4 value) {
-		return new Union5<T1, T2, T3, T4, T5>(new Member4<>(Objects.requireNonNull(value)));
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> of4(T4 value) {
+		return new Union4<T1, T2, T3, T4>(new Member4<>(Objects.requireNonNull(value)));
 	}
 	
 	/**
-	 * 指定されたT4型の要素を持つ新しいUnion5を返す．
+	 * 指定されたT4型の要素を持つ新しいUnion4を返す．
 	 * 
-	 * @deprecated {@link Union2#of1(Object) Union5#of4(T4)}に置き換えられた
+	 * @deprecated {@link Union2#of1(Object) Union4#of4(T4)}に置き換えられた
 	 * 
 	 * @param value
-	 * @return 新しいUnion5
+	 * @return 新しいUnion4
 	 * @exception NullPointerException valueがnullの場合
 	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> _4(T4 value) {
+	public static <T1, T2, T3, T4> Union4<T1, T2, T3, T4> _4(T4 value) {
 		return of4(value);
-	}
-	
-	/**
-	 * 指定されたT5型の要素を持つ新しいUnion5を返す．
-	 * 
-	 * @param value
-	 * @return 新しいUnion5
-	 * @exception NullPointerException valueがnullの場合
-	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> of5(T5 value) {
-		return new Union5<T1, T2, T3, T4, T5>(new Member5<>(Objects.requireNonNull(value)));
-	}
-	
-	/**
-	 * 指定されたT5型の要素を持つ新しいUnion5を返す．
-	 * 
-	 * @deprecated {@link Union2#of1(Object) Union5#of5(T5)}に置き換えられた
-	 * 
-	 * @param value
-	 * @return 新しいUnion5
-	 * @exception NullPointerException valueがnullの場合
-	 */
-	public static <T1, T2, T3, T4, T5> Union5<T1, T2, T3, T4, T5> _5(T5 value) {
-		return of5(value);
 	}
 	
 	/**
@@ -171,16 +144,14 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 * @param f2 T2に適用する関数
 	 * @param f3 T3に適用する関数
 	 * @param f4 T4に適用する関数
-	 * @param f5 T5に適用する関数
 	 * @return 関数の戻り値
 	*/
 	public final <R> R match(
 				Function<? super T1, ? extends R> f1,
 				Function<? super T2, ? extends R> f2,
 				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5) {
-		return member.match(f1, f2, f3, f4, f5);
+				Function<? super T4, ? extends R> f4) {
+		return member.match(f1, f2, f3, f4);
 	}
 	
 	/**
@@ -191,15 +162,13 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 * @param c2 T2に対するオペレーション
 	 * @param c3 T3に対するオペレーション
 	 * @param c4 T4に対するオペレーション
-	 * @param c5 T5に対するオペレーション
 	 */
 	public final void matchDo(
 				Consumer<? super T1> c1,
 				Consumer<? super T2> c2,
 				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5) {
-		member.matchDo(c1, c2, c3, c4, c5);
+				Consumer<? super T4> c4) {
+		member.matchDo(c1, c2, c3, c4);
 	}
 
 	
@@ -210,7 +179,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 * @return T1型の要素を表すOptional,または空のOptional
 	 */
 	public Optional<T1> get1() {
-		return Optional.ofNullable(match(t1 -> t1, t2 -> null, t3 -> null, t4 -> null, t5 -> null));
+		return Optional.ofNullable(match(t1 -> t1, t2 -> null, t3 -> null, t4 -> null));
 	}
 	
 	/**
@@ -220,7 +189,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 * @return T2型の要素を表すOptional,または空のOptional
 	 */
 	public Optional<T2> get2() {
-		return Optional.ofNullable(match(t1 -> null, t2 -> t2, t3 -> null, t4 -> null, t5 -> null));
+		return Optional.ofNullable(match(t1 -> null, t2 -> t2, t3 -> null, t4 -> null));
 	}
 	
 	/**
@@ -230,7 +199,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 * @return T3型の要素を表すOptional,または空のOptional
 	 */
 	public Optional<T3> get3() {
-		return Optional.ofNullable(match(t1 -> null, t2 -> null, t3 -> t3, t4 -> null, t5 -> null));
+		return Optional.ofNullable(match(t1 -> null, t2 -> null, t3 -> t3, t4 -> null));
 	}
 	
 	/**
@@ -240,18 +209,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 * @return T4型の要素を表すOptional,または空のOptional
 	 */
 	public Optional<T4> get4() {
-		return Optional.ofNullable(match(t1 -> null, t2 -> null, t3 -> null, t4 -> t4, t5 -> null));
-	}
-	
-	/**
-	 * このインスタンスのT5型の要素を返す．
-	 * このインスタンスのT5型の要素を表すOptionalを返す．要素がT5型でない場合は空のOptionalを返す．
-	 * 
-	 * @return T5型の要素を表すOptional,または空のOptional
-	 */
-	public Optional<T5> get5() {
-		// TODO 全部nullになっているので手動で直す
-		return Optional.ofNullable(match(t1 -> null, t2 -> null, t3 -> null, t4 -> null, t5 -> t5));
+		return Optional.ofNullable(match(t1 -> null, t2 -> null, t3 -> null, t4 -> t4));
 	}
 	
 	/**
@@ -261,7 +219,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 	 */
 	@Override
 	public String toString() {
-		return match(T1::toString, T2::toString, T3::toString, T4::toString, T5::toString);
+		return match(T1::toString, T2::toString, T3::toString, T4::toString);
 	}
 	
 	/**
@@ -275,8 +233,8 @@ public class Union5<T1, T2, T3, T4, T5> {
 	}
 	
 	/**
-	 * 指定されたオブジェクトがUnion5と等しいか比較する．
-	 * 指定されたオブジェクトもUnion5であり，内部の要素が等しいときにtrueをかえす．
+	 * 指定されたオブジェクトがUnion4と等しいか比較する．
+	 * 指定されたオブジェクトもUnion4であり，内部の要素が等しいときにtrueをかえす．
 	 * 
 	 * @return 指定されたオブジェクトがUnionと等しい場合は true
 	 */
@@ -289,26 +247,26 @@ public class Union5<T1, T2, T3, T4, T5> {
 		if (getClass() != obj.getClass())
 			return false;
 		@SuppressWarnings("rawtypes")
-		Object other = ((Union5)obj).member.getValue();
+		Object other = ((Union4)obj).member.getValue();
 		return member.getValue().equals(other);
 	}
 
-	private Union5(Member<T1, T2, T3, T4, T5> member) {
+	private Union4(Member<T1, T2, T3, T4> member) {
 		this.member = member;
 	}
 
 	/**
-	 * 指定されたUnion5を用いてインスタンスを初期化する．
+	 * 指定されたUnion4を用いてインスタンスを初期化する．
 	 * このクラスを継承したクラスを作るときに利用する．
 	 *
 	 * @param base 初期化に用いるインスタンス
 	 */
-	protected Union5(Union5<T1, T2, T3, T4, T5> base) {
+	protected Union4(Union4<T1, T2, T3, T4> base) {
 		this.member = base.member;
 	}
 
 	
-	private static class Member1<T1, T2, T3, T4, T5> implements Member<T1, T2, T3, T4, T5> {
+	private static class Member1<T1, T2, T3, T4> implements Member<T1, T2, T3, T4> {
 		
 		private final T1 value;
 		
@@ -321,8 +279,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Function<? super T1, ? extends R> f1,
 				Function<? super T2, ? extends R> f2,
 				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5) {
+				Function<? super T4, ? extends R> f4) {
 			return f1.apply(value);
 		}
 		
@@ -331,8 +288,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Consumer<? super T1> c1,
 				Consumer<? super T2> c2,
 				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5) {
+				Consumer<? super T4> c4) {
 			c1.accept(value);
 		}
 		
@@ -342,7 +298,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 		}
 	}
 	
-	private static class Member2<T1, T2, T3, T4, T5> implements Member<T1, T2, T3, T4, T5> {
+	private static class Member2<T1, T2, T3, T4> implements Member<T1, T2, T3, T4> {
 		
 		private final T2 value;
 		
@@ -355,8 +311,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Function<? super T1, ? extends R> f1,
 				Function<? super T2, ? extends R> f2,
 				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5) {
+				Function<? super T4, ? extends R> f4) {
 			return f2.apply(value);
 		}
 		
@@ -365,8 +320,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Consumer<? super T1> c1,
 				Consumer<? super T2> c2,
 				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5) {
+				Consumer<? super T4> c4) {
 			c2.accept(value);
 		}
 		
@@ -376,7 +330,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 		}
 	}
 	
-	private static class Member3<T1, T2, T3, T4, T5> implements Member<T1, T2, T3, T4, T5> {
+	private static class Member3<T1, T2, T3, T4> implements Member<T1, T2, T3, T4> {
 		
 		private final T3 value;
 		
@@ -389,8 +343,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Function<? super T1, ? extends R> f1,
 				Function<? super T2, ? extends R> f2,
 				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5) {
+				Function<? super T4, ? extends R> f4) {
 			return f3.apply(value);
 		}
 		
@@ -399,8 +352,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Consumer<? super T1> c1,
 				Consumer<? super T2> c2,
 				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5) {
+				Consumer<? super T4> c4) {
 			c3.accept(value);
 		}
 		
@@ -410,7 +362,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 		}
 	}
 	
-	private static class Member4<T1, T2, T3, T4, T5> implements Member<T1, T2, T3, T4, T5> {
+	private static class Member4<T1, T2, T3, T4> implements Member<T1, T2, T3, T4> {
 		
 		private final T4 value;
 		
@@ -423,8 +375,7 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Function<? super T1, ? extends R> f1,
 				Function<? super T2, ? extends R> f2,
 				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5) {
+				Function<? super T4, ? extends R> f4) {
 			return f4.apply(value);
 		}
 		
@@ -433,43 +384,8 @@ public class Union5<T1, T2, T3, T4, T5> {
 				Consumer<? super T1> c1,
 				Consumer<? super T2> c2,
 				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5) {
+				Consumer<? super T4> c4) {
 			c4.accept(value);
-		}
-		
-		@Override
-		public Object getValue() {
-			return value;
-		}
-	}
-	
-	private static class Member5<T1, T2, T3, T4, T5> implements Member<T1, T2, T3, T4, T5> {
-		
-		private final T5 value;
-		
-		Member5(T5 value) {
-			this.value = value;
-		}
-		
-		@Override
-		public <R> R match(
-				Function<? super T1, ? extends R> f1,
-				Function<? super T2, ? extends R> f2,
-				Function<? super T3, ? extends R> f3,
-				Function<? super T4, ? extends R> f4,
-				Function<? super T5, ? extends R> f5) {
-			return f5.apply(value);
-		}
-		
-		@Override
-		public void matchDo(
-				Consumer<? super T1> c1,
-				Consumer<? super T2> c2,
-				Consumer<? super T3> c3,
-				Consumer<? super T4> c4,
-				Consumer<? super T5> c5) {
-			c5.accept(value);
 		}
 		
 		@Override

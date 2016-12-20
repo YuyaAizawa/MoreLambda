@@ -1,4 +1,4 @@
-package com.lethe_river.morelambda.union;
+package com.lethe_river.morelambda.algebra;
 
 import java.util.Objects;
 import java.util.Optional;

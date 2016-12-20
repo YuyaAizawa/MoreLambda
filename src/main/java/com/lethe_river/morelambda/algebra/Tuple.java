@@ -1,4 +1,4 @@
-package com.lethe_river.morelambda.tuple;
+package com.lethe_river.morelambda.algebra;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -7,7 +7,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import com.lethe_river.morelambda.union.Union2;
+import com.lethe_river.morelambda.algebra.Union2;
 
 /**
  * 検査例外を発生させる可能性のある1引数関数
