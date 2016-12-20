@@ -1,6 +1,24 @@
 package com.lethe_river.morelambda.algebra;
 
-public final class Tuple4<T1,T2,T3,T4> {
+import java.io.Serializable;
+
+/**
+ * 型パラメータで指定した，4つの型の要素を持つコンテナオブジェクト
+ * 
+ * メソッドの返り値に複数の値を指定したい場面や，
+ * フィールドの複数の関連した値をまとめて指定したい場面で，
+ * 専用のクラスを定義するまでもないような場合に利用する．
+ * 
+ * @author YuyaAizawa
+ *
+ * @param <T1>
+ * @param <T2>
+ * @param <T3>
+ * @param <T4>
+ */
+public final class Tuple4<T1,T2,T3,T4> implements Serializable {
+	private static final long serialVersionUID = 9130980903325923388L;
+	
 	public final T1 v1;
 	public final T2 v2;
 	public final T3 v3;
