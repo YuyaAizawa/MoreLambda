@@ -19,7 +19,7 @@ import com.lethe_river.morelambda.algebra.Union2;
  * @param <E> 例外の型
  */
 @FunctionalInterface
-public interface ThrowableSupplier<T, E extends Exception> {
+public interface ThrowableSupplier<T, E extends Throwable> {
 	/**
 	 * 検査例外を発生させる結果を返すオブジェクトを指定し，実行時例外にラップしたSupplierを生成する．
 	 * @param s 検査例外を発生させる結果を返すオブジェクト
@@ -98,8 +98,10 @@ public interface ThrowableSupplier<T, E extends Exception> {
 				return get();
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
-				return complementer.apply((E) e);
+			} catch (Throwable t) {
+				@SuppressWarnings("unchecked")
+				E e = (E) t; // チェック例外でコンパイルが通るのはEのみ
+				return complementer.apply(e);
 			}
 		};
 	}
@@ -114,7 +116,7 @@ public interface ThrowableSupplier<T, E extends Exception> {
 				return get();
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				if(e instanceof IOException) {
 					throw new UncheckedIOException((IOException) e);
 				}
@@ -133,8 +135,10 @@ public interface ThrowableSupplier<T, E extends Exception> {
 				return Union2.of1(get());
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
-				return Union2.of2(((E) e));
+			} catch (Throwable t) {
+				@SuppressWarnings("unchecked")
+				E e = (E) t; // チェック例外でコンパイルが通るのはEのみ
+				return Union2.of2(e);
 			}
 		};
 	}
@@ -149,7 +153,7 @@ public interface ThrowableSupplier<T, E extends Exception> {
 				return Optional.ofNullable(get());
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				return Optional.empty();
 			}
 		};

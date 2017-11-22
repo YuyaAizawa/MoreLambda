@@ -18,8 +18,8 @@ import com.lethe_river.morelambda.algebra.Union2;
  * @param <E> 例外の型
  */
 @FunctionalInterface
-public interface ThrowableFunction<T, R, E extends Exception> {
-	
+public interface ThrowableFunction<T, R, E extends Throwable> {
+
 	/**
 	 * 検査例外を発生させる関数を指定し，実行時例外にラップした関数を生成する．
 	 * @param f 検査例外を発生させる関数
@@ -30,7 +30,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 	public static <T,R> Function<T, R> unchecked(ThrowableFunction<T, R, ?> f) {
 		return f.unchecked();
 	}
-	
+
 	/**
 	 * 検査例外を発生させる関数と，発生した例外を戻り値に変換する関数を指定し，例外を発生させない関数を生成する．
 	 * @param f 検査例外を発生させる関数
@@ -43,7 +43,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 	public static <T, R, E extends Exception> Function<T, R> complement(ThrowableFunction<T, R, E> f, BiFunction<E, T ,R> c) {
 		return f.complement(c);
 	}
-	
+
 	/**
 	 * 検査例外を発生させる関数を指定し，結果または例外を返す関数を生成する．
 	 * @param f 検査例外を発生させる関数
@@ -55,7 +55,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 	public static <T, R, E extends Exception> Function<T, Union2<R, E>> includesToValue(ThrowableFunction<T, R, E> f) {
 		return f.includesToValue();
 	}
-	
+
 	/**
 	 * 検査例外を発生させる関数を指定し，結果をOptional(例外発生時はempty)として返す関数を生成する．
 	 * @param f 検査例外を発生させる関数
@@ -67,7 +67,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 	public static <T, R, E extends Exception> Function<T, Optional<R>> maybe(ThrowableFunction<T, R, E> f) {
 		return f.maybe();
 	}
-	
+
 	/**
 	 * 検査例外を発生させる関数を指定し，結果をStreamとして返す関数を生成する．例外発生時Streamは空となる.
 	 * @param f 検査例外を発生させる関数
@@ -82,19 +82,19 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 						(Function<R, Stream<R>>) r -> Stream.of(r),
 						(Function<E, Stream<R>>) e -> Stream.empty()));
 	}
-	
+
 	/**
 	 * 引数を関数に適用し戻り値を返す．検査例外が発生する可能性がある.
-	 * 
+	 *
 	 * @param t この関数に適用する引数
 	 * @return この関数の戻り値
 	 * @throws E この関数が発生させる例外
 	 */
 	public R apply(T t) throws E;
-	
+
 	/**
 	 * 例外が発生したときの戻り値を与える関数を指定し，この関数と合成した関数を返す.
-	 * 
+	 *
 	 * @param complementer 発生した例外とその時の引数から戻り値を生成する関数
 	 * @return 検査例外を発生させない関数
 	 */
@@ -104,12 +104,14 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 				return apply(v);
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
-				return complementer.apply((E) e, v);
+			} catch (Throwable t) {
+				@SuppressWarnings("unchecked")
+				E e = (E) t; // チェック例外でコンパイルが通るのはEのみ
+				return complementer.apply(e, v);
 			}
 		};
 	}
-	
+
 	/**
 	 * 発生した例外を実行時例外にラップする関数を返す．
 	 * @return 検査例外を発生させない関数
@@ -120,7 +122,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 				return apply(v);
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				if(e instanceof IOException) {
 					throw new UncheckedIOException((IOException) e);
 				}
@@ -128,7 +130,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 			}
 		};
 	}
-	
+
 	/**
 	 * 引数を関数に適用した結果か，発生した例外のどちらかを戻り値とする関数を返す.
 	 * @return 検査例外を発生させない関数
@@ -139,12 +141,14 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 				return Union2.of1(apply(v));
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
-				return Union2.of2(((E) e));
+			} catch (Throwable t) {
+				@SuppressWarnings("unchecked")
+				E e = (E) t; // チェック例外でコンパイルが通るのはEのみ
+				return Union2.of2((e));
 			}
 		};
 	}
-	
+
 	/**
 	 * 引数を関数に適用した結果をOptionalでラップする関数を返す．例外が発生した場合はempty.
 	 * @return 検査例外を発生させない関数
@@ -155,7 +159,7 @@ public interface ThrowableFunction<T, R, E extends Exception> {
 				return Optional.ofNullable(apply(v));
 			} catch (RuntimeException | Error e) {
 				throw e;
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				return Optional.empty();
 			}
 		};
